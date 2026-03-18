@@ -1,0 +1,153 @@
+######### IMPORTANDO BIBLIOTECAS ###########
+import geopandas as gpd
+import numpy as np
+import matplotlib.pyplot as plt
+from matplotlib_scalebar.scalebar import ScaleBar
+from matplotlib.patches import Rectangle
+import matplotlib.patches as mpatches
+import matplotlib.patheffects as pe
+from matplotlib.ticker import FuncFormatter
+import cartopy.crs as ccrs
+import cartopy.feature as cfeature
+from cartopy.io.shapereader import Reader
+from cartopy.feature import NaturalEarthFeature
+from cartopy.mpl.gridliner import LONGITUDE_FORMATTER, LATITUDE_FORMATTER
+import matplotlib.image as mpimg
+from matplotlib.offsetbox import OffsetImage, AnnotationBbox
+import matplotlib.ticker as mticker
+
+#Abrindo shape dos estados do Brasil
+shp_estados= gpd.read_file('/caminho/estados-br-2024.shp')
+
+#SHP das regiões do Brasil
+regioes_shape = gpd.read_file('/caminho/regioes-br.shp')
+
+regioes_shape["nome da coluna que corresponde ao nome da região"] = regioes_shape["nome da coluna que corresponde ao nome da região"].str.strip()
+
+# Definir cores por região
+cores_regioes = {"nome da regiao do jeito que está no arq": "#cor"}
+
+#Preenchendo as regiões do Brasil de acordo com a paleta escolhida acima
+regioes_shape['cor'] = regioes_shape['nome da coluna que corresponde ao nome da região'].map(cores_regioes).fillna('#816250')
+
+
+#CRIANDO A FIGURA---------------------------------------------------------------------------------------
+  #Tamanho da Figura = proporcional para mostrar o Brasil em destaque
+fig = plt.figure(figsize=(8.8, 8.5)) #largura, altura
+ax = fig.add_axes([0.045, 0.05, 0.75, 0.94], projection=ccrs.PlateCarree()) #left, bottom, width, height
+
+
+xmin, xmax = -75, -32  # Longitude (Oeste a Leste)
+ymin, ymax = -35, 7    # Latitude (Sul a Norte)
+
+ax.set_extent([xmin, xmax, ymin, ymax], crs=ccrs.PlateCarree())
+
+# Fronteiras nacionais e costa
+ax.add_feature(cfeature.BORDERS, linewidth=1.0, edgecolor='black', alpha=0.8, zorder=7)
+ax.coastlines(linewidth=1.0, edgecolor='black', alpha=0.8, zorder=7)
+ax.add_feature(cfeature.LAND, facecolor='whitesmoke') #colorindo o continente de branco fumaça
+
+# Colocando as fronteiras dos estados br
+shp_estados.boundary.plot(ax=ax, linewidth=0.5, color='black', zorder=5)
+
+#Colocando a parte colorida das regiões no mapa
+regioes_shape.plot(ax=ax,color=regioes_shape['cor'],edgecolor='black',linewidth=1,alpha=0.85,zorder=3)
+
+ax.set_facecolor('lightblue') #colorindo o fundo de azul claro
+
+#Barra de escala
+scalebar = ScaleBar(111000,location='lower right', #posição
+    length_fraction=0.18, #se estiver pegando na borda
+    width_fraction=0.008, #espessura da barra
+    box_alpha=0, color='black', #cor
+    scale_loc='bottom',font_properties={'size': 9})
+
+ax.add_artist(scalebar)
+
+#Pra criar a legenda com as cores das regiões no canto inferior direito
+  #associando cores para as caixinhas, e colocando o nome da região ao lado
+nome_da_regiao = mpatches.Patch(color='#cor', edgecolor='black', label='Nome que entrará na legenda')
+
+fig.legend(handles=[nome_da_regiao],loc='lower right', #localização na lateral inferior direita
+    title='Título da legenda',title_fontsize=12.5, #tamanho da fonte do título da legenda
+    fontsize=11, #tamanho da fonte dos nomes das regiões
+    edgecolor='black',
+    bbox_to_anchor=(0.99, 0.012), #posição certinha para controlar o afastamento da moldura
+    borderpad=0.3,
+    labelspacing=1,
+    handlelength=1.2, #largura das caixinhas
+    handleheight=1.2)  #altura das caixinhas
+
+
+#Pra adicionar as siglas dos estados em cima dos recortes
+  #encontrando o ponto central representativo de cada estado
+shape_estados['centroide'] = shape_estados.geometry.representative_point()
+
+shape_estados['x'] = shape_estados.centroide.x
+
+shape_estados['y'] = shape_estados.centroide.y
+
+  #associando as siglas dos estados com seus polígonos
+for idx, row in shape_estados.iterrows():
+    ax.text(row['x'], row['y'], row['nome da coluna que corresponde às siglas de cada estado'], ha='center', 
+            fontsize=10.5, fontweight='bold',path_effects=[pe.withStroke(linewidth=4.2, foreground="white")])
+
+#Para adicionar os nomes dos oceanos nas laterais
+ax.text(-72.5, -22, 'nome do oceano', transform=ccrs.PlateCarree(),fontsize=10,style='italic', alpha=0.7,ha='center')
+
+ax.text(-36, -28, 'nome do oceano', #com coordenadas para posicionar o texto e qual texto quer adicionar
+        transform=ccrs.PlateCarree(),fontsize=12, #tamanho da fonte
+        style='italic', #estilo da fonte
+        alpha=0.7, #rotação do texto, se quiser alinhado é só tirar esse parâmetro
+        ha='center') #posição central
+
+#Legenda de autoria e referência-----------------------------
+caixa_legenda= mpatches.Patch(color='white', edgecolor='black')
+
+fig.text(0.03, 0.025, #posição no eixo x, e posição no eixo y
+         'Fonte: Órgão – item (ano).\nElaborado por nome do(a) autor(a).\nSistema: SIRGAS 2000.',
+         fontsize=10,
+         multialignment='left', #para alinhar todo o texto da legenda à esquerda
+         bbox=dict(facecolor='white',edgecolor='black',linewidth=1,boxstyle='square,pad=0.6'))
+
+#Para moldura em volta da figura toda
+fig.patches.append(Rectangle((0,0),1,1, fill=False, transform=fig.transFigure,edgecolor='black', linewidth=1.5, zorder=10))
+
+#Título
+fig.suptitle('Título Apropriado', fontsize=18, weight= 'bold', y=0.98)
+
+# Grade de coordenadas
+gl = ax.gridlines(draw_labels=True, x_inline=False, y_inline=False, linestyle='--',linewidth=0.4, alpha=0.8, color='gray')
+gl.xlines = True  #desenha as linhas verticais
+gl.ylines = True  #desenha as linhas horizontais
+gl.top_labels = False
+gl.right_labels = False
+gl.xformatter = LONGITUDE_FORMATTER
+gl.yformatter = LATITUDE_FORMATTER
+gl.xlabel_style = {'fontsize': 8}
+gl.ylabel_style = {'fontsize': 8}
+
+  #controlando o intervalo entre as coordenadas
+gl.xlocator = mticker.FixedLocator([-70, -60, -50, -40]) # Longitude
+gl.ylocator = mticker.FixedLocator([-30, -15, 0]) # Latitude
+
+  # Rotação específica para os números da latitude (eixo Y)
+gl.ylabel_style = {'rotation': 90}
+
+#Adicionando a rosa dos ventos
+# Carregando a imagem de autoria própria
+img_rosa = mpimg.imread('/caminho/Rosa_Ventos.png')
+
+# Criar OffsetImage e controlar tamanho
+imagebox = OffsetImage(img_rosa, alpha=1, zoom=0.045,resample=True) 
+        # zoom ajusta o tamanho, e resample=True mantém a qualidade da imagem
+
+# Posicionar na figura 
+rosa_final = AnnotationBbox(imagebox, (0.89, 0.85), frameon=False, xycoords='figure fraction')
+
+ax.add_artist(rosa_final) #adicionando em relação ao eixo
+
+#Salvando
+plt.savefig('/caminho/Nome-da-Figura.png', dpi=500, bbox_inches='tight')
+
+plt.show()

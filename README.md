@@ -10,9 +10,19 @@ This repository contains location maps developed in Python for cartographic repr
 - Apply Python tools for cartographic representation
 
 # Data
-  - Official shapefiles from public geographic databases such as that of the IBGE
+  - [*Brazilian Territorial Mesh (Federal Units)*] (https://geoftp.ibge.gov.br/organizacao_do_territorio/malhas_territoriais/malhas_municipais/municipio_2025/Brasil/BR_UF_2025.zip)
+  Source: IBGE – Instituto Brasileiro de Geografia e Estatística  
+  Description: Official cartographic boundaries of Brazilian states (Unidades da Federação).  
 
+- [*Municipal Boundaries – Rio de Janeiro State*] (https://geoftp.ibge.gov.br/organizacao_do_territorio/malhas_territoriais/malhas_municipais/municipio_2025/UFs/RJ/RJ_Municipios_2025.zip)
+  Source: IBGE – Instituto Brasileiro de Geografia e Estatística  
+  Description: Municipal-level territorial divisions for the state of Rio de Janeiro.
 
+- [*Brazilian Major Regions (Grandes Regiões)*] (https://geoftp.ibge.gov.br/organizacao_do_territorio/malhas_territoriais/malhas_municipais/municipio_2025/Brasil/BR_Regioes_2025.zip)
+  Source: IBGE – Instituto Brasileiro de Geografia e Estatística  
+  Description: Official regional division of Brazil into five major regions (North, Northeast, Central-West, Southeast, and South).  
+
+  
 # Tools and Libraries
   - Python
   - Matplotlib
@@ -21,5 +31,5 @@ This repository contains location maps developed in Python for cartographic repr
 
     
 # Outputs
-  - Location map of a city
+  - Location map of Guapimirim (the city was chosen as the study area because it's the author's place of residence)
   - Location map of the brazilian regions

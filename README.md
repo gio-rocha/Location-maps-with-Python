@@ -16,14 +16,14 @@ This repository contains location maps developed in Python for cartographic repr
     - 🔗 [Download Data](https://geoftp.ibge.gov.br/organizacao_do_territorio/malhas_territoriais/malhas_municipais/municipio_2025/Brasil/BR_UF_2025.zip)
 
 - *Municipal Boundaries – Rio de Janeiro State*
-  Source: IBGE – Instituto Brasileiro de Geografia e Estatística  
-  Description: Municipal-level territorial divisions for the state of Rio de Janeiro.
-  🔗 [Download Data](https://geoftp.ibge.gov.br/organizacao_do_territorio/malhas_territoriais/malhas_municipais/municipio_2025/UFs/RJ/RJ_Municipios_2025.zip)
+   - Source: IBGE – Instituto Brasileiro de Geografia e Estatística  
+   - Description: Municipal-level territorial divisions for the state of Rio de Janeiro.
+   - 🔗 [Download Data](https://geoftp.ibge.gov.br/organizacao_do_territorio/malhas_territoriais/malhas_municipais/municipio_2025/UFs/RJ/RJ_Municipios_2025.zip)
 
 - *Brazilian Major Regions (Grandes Regiões)*
-  Source: IBGE – Instituto Brasileiro de Geografia e Estatística  
-  Description: Official regional division of Brazil into five major regions (North, Northeast, Central-West, Southeast, and South).
-  🔗 [Download Data](https://geoftp.ibge.gov.br/organizacao_do_territorio/malhas_territoriais/malhas_municipais/municipio_2025/Brasil/BR_Regioes_2025.zip)
+   - Source: IBGE – Instituto Brasileiro de Geografia e Estatística  
+   - Description: Official regional division of Brazil into five major regions (North, Northeast, Central-West, Southeast, and South).
+   - 🔗 [Download Data](https://geoftp.ibge.gov.br/organizacao_do_territorio/malhas_territoriais/malhas_municipais/municipio_2025/Brasil/BR_Regioes_2025.zip)
 
   
 # Tools and Libraries

@@ -12,17 +12,17 @@ This repository contains location maps developed in Python for cartographic repr
 # Data
   - *Brazilian Territorial Mesh (Federal Units)*
     - Source: IBGE – Instituto Brasileiro de Geografia e Estatística  
-    - Description: Official cartographic boundaries of Brazilian states (Unidades da Federação).
+    - Description: Official cartographic boundaries of Brazilian states (Unidades da Federação)
     - 🔗 [Download Data](https://geoftp.ibge.gov.br/organizacao_do_territorio/malhas_territoriais/malhas_municipais/municipio_2025/Brasil/BR_UF_2025.zip)
 
 - *Municipal Boundaries – Rio de Janeiro State*
    - Source: IBGE – Instituto Brasileiro de Geografia e Estatística  
-   - Description: Municipal-level territorial divisions for the state of Rio de Janeiro.
+   - Description: Municipal-level territorial divisions for the state of Rio de Janeiro
    - 🔗 [Download Data](https://geoftp.ibge.gov.br/organizacao_do_territorio/malhas_territoriais/malhas_municipais/municipio_2025/UFs/RJ/RJ_Municipios_2025.zip)
 
 - *Brazilian Major Regions (Grandes Regiões)*
    - Source: IBGE – Instituto Brasileiro de Geografia e Estatística  
-   - Description: Official regional division of Brazil into five major regions (North, Northeast, Central-West, Southeast, and South).
+   - Description: Official regional division of Brazil into five major regions (North, Northeast, Central-West, Southeast, and South)
    - 🔗 [Download Data](https://geoftp.ibge.gov.br/organizacao_do_territorio/malhas_territoriais/malhas_municipais/municipio_2025/Brasil/BR_Regioes_2025.zip)
 
   
@@ -35,4 +35,7 @@ This repository contains location maps developed in Python for cartographic repr
     
 # Outputs
   - Location map of Guapimirim (the city was chosen as the study area because it's the author's place of residence)
+    <img width="4100" height="3499" alt="Guapi_Loc_Mapa" src="https://github.com/user-attachments/assets/aa267026-fa73-45f0-9a51-8deb6e8b32c6" />
+
   - Location map of the brazilian regions
+<img width="4500" height="4350" alt="Brasil_Regioes" src="https://github.com/user-attachments/assets/ed3b8503-9f16-46af-ad21-8b5b35021e6f" />
